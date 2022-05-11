@@ -1,5 +1,7 @@
 package model.entities;
 
+import java.util.Objects;
+
 public class Curso {
 	private Integer idcurso;
 	private String nomeCurso;
@@ -36,6 +38,23 @@ public class Curso {
 
 	public void setNomeCurso(String nomeCurso) {
 		this.nomeCurso = nomeCurso;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nomeCurso);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Curso other = (Curso) obj;
+		return Objects.equals(nomeCurso, other.nomeCurso);
 	}
 
 	
