@@ -1,10 +1,12 @@
 package model.dao;
 
+import model.db.DB;
+
 public class FactoryDAO {
 
 	public static CursoDAO createCursoDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new CursoDAOImp(DB.getConexao());
 	}
 
 }
