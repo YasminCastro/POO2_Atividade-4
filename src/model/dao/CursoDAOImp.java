@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.db.DB;
@@ -71,10 +72,36 @@ public class CursoDAOImp implements CursoDAO{
 
 	@Override
 	public List<Curso> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		List<Curso> lista = new ArrayList<>();
+		
+		try {
+			String sql = "SELECT * FROM curso";
+			
+			pst = conexao.prepareStatement(sql);					
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				Curso c = new Curso(rs.getInt(1), rs.getString(2));
+				
+				lista.add(c);
+			}
+			
+		
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return lista;
+	
+	
 	
 	
 
+}
 }
