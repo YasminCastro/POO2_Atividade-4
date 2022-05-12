@@ -27,7 +27,7 @@ public class CursoDAOImp implements CursoDAO{
 		
 		try {
 			
-			String sql = "INSER INTO curso (nomecurso) VALUES (?)";
+			String sql = "INSERT INTO curso (nomecurso) VALUES (?)";
 			pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pst.setString(1, obj.getNomeCurso());
 			
