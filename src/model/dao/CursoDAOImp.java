@@ -54,19 +54,97 @@ public class CursoDAOImp implements CursoDAO{
 
 	@Override
 	public void update(Curso obj) {
-		// TODO Auto-generated method stub
+		
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			
+			
+			String	sql = "UPDATE curso SET nomeCurso = ? WHERE Idcurso = ? ";
+			pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			pst.setString(1, obj.getNomeCurso());
+			pst.setInt(2, obj.getIdcurso());
+			
+			int linhas = pst.executeUpdate();
+			
+			
+			
+			if(linhas > 0) {
+				rs  = pst.getGeneratedKeys();
+				rs.next();			
+				
+				System.out.println(obj.toString() + " foi atualizado com sucesso!");
+			}else {
+				System.out.println("Não foi possível atualizar o curso!");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+		
 		
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			
+			String sql = "DELETE FROM curso WHERE Idcurso = ?";
+			pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			pst.setInt(1, id);
+			
+			int linhas = pst.executeUpdate();
+			
+			if(linhas > 0) {
+				rs  = pst.getGeneratedKeys();
+				rs.next();
+				
+				System.out.println(id + " foi removido com sucesso!");
+			}else {
+				System.out.println("Não foi possível remover o curso!");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public Curso findById(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			String sql = "SELECT * FROM curso WHERE Idcurso = ?";
+			
+			pst = conexao.prepareStatement(sql);	
+			pst.setInt(1, id);						
+			rs = pst.executeQuery();
+			rs.next();
+			
+			Curso c = new Curso(rs.getInt(1), rs.getString(2));
+					
+			
+			return c;
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		return null;
 	}
 

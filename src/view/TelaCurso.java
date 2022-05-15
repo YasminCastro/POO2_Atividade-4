@@ -23,8 +23,9 @@ public class TelaCurso {
 			System.out.println("    =========================");
 			System.out.println("    |     1 - Cadastrar     |");
 			System.out.println("    |     2 - Listar        |");
-			System.out.println("    |     3 - Alterar       |");
-			System.out.println("    |     4 - Excluir       |");
+			System.out.println("    |     3 - Listar por ID |");
+			System.out.println("    |     4 - Alterar       |");
+			System.out.println("    |     5 - Excluir       |");
 			System.out.println("    |     0 - Retornar      |");
 			System.out.println("    =========================");
 			System.out.print("    Opcao -> ");
@@ -36,9 +37,11 @@ public class TelaCurso {
 					break;
 			case 2:	console = listar(console);
 					break;
-			case 3: console = alterar(console);
+			case 3: console = listarById(console);
+				break;
+			case 4: console = alterar(console);
 					break;
-			case 4: console = excluir(console);
+			case 5: console = excluir(console);
 					break;
 			case 0:	console = TelaPrincipal.menuPrincipal(console);
 					break;
@@ -109,6 +112,7 @@ public class TelaCurso {
 	
 	private static Scanner excluir(Scanner console) throws ParseException {
 
+
 		System.out.println("\n\n");
 		System.out.println("    ###   Curso-Excluir   ###");
 		System.out.println("    =========================");
@@ -118,6 +122,34 @@ public class TelaCurso {
 		System.out.println("    =========================");
 		
 		cursoDao.deleteById(id);
+		
+		console.nextLine();
+		return console;
+	}
+	
+	
+	private static Scanner listarById(Scanner console) {
+			
+		System.out.println("\n\n");
+		System.out.println("    ###   Curso-Listar por id    ###");
+		System.out.println("    =========================");
+		System.out.print("    |     Digite o Id: ");
+		int id = console.nextInt();
+		console.nextLine();		
+		System.out.println("    =========================");
+		
+		 Curso c = cursoDao.findById(id);
+		 
+		 if(c == null) {
+			 System.out.println("Não foi encontrado curso com esse id."); 
+		 }else {
+			 
+				System.out.println("    |     " + c.getIdcurso()
+				 + "\t" 		+ c.getNomeCurso() ); 
+				 
+		 }
+		 
+		
 		
 		console.nextLine();
 		return console;

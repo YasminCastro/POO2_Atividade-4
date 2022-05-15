@@ -8,5 +8,20 @@ public class FactoryDAO {
 		
 		return new CursoDAOImp(DB.getConexao());
 	}
+	
+	
+	public static AlunoDAO createAlunoDAO() {
+		
+		return new AlunoDAOImp(DB.getConexao());
+	}
+	
+	public static DisciplinaDAO createDisciplinaDAO() {
+		
+		return new DisciplinaDAOImp(DB.getConexao());
+	}
+
+
+
+	
 
 }
